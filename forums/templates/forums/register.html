@@ -1,0 +1,12 @@
+{% block content %}
+	<h2>register</h2>
+	<form action="/register1/" method="post" name="form">{% csrf_token %}
+	<label for="username">Username:</label>
+	 <input type="text" name="username" placeholder="Enter username" id="username" required></br>
+	 <label for="email">Email:</label>
+	 <input type="email" name="email" placeholder="Enter email" id="email" required></br>
+	 <label for="password">Password:</label>
+	 <input type="password" name="password" placeholder="Enter password" id="password" required></br>
+	 <input type='submit' value="register"/>
+	</form>
+{% endblock %}

@@ -1,0 +1,149 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+
+    <title>Sign up page for ItsMyWay</title>
+
+    <link href="{% static 'forums/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'forums/css/style.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'forums/shrtcut.ico' %}"/>
+
+    <style type="text/css" >
+section {
+    padding: 100px 0;
+    text-align: center;
+}
+
+
+.input-group {
+    margin: 20px auto;
+    width: 100%;
+}
+input[type="text"]
+ {
+    width: 480px;
+    height: 40px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius:5px;
+    border-bottom-left-radius:5px;
+}
+textarea{
+    width: 480px;
+    height: 120px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius:5px;
+    border-bottom-left-radius:5px;
+
+}
+button.btn {
+    width: 480px;
+    height: 60px;
+      
+}
+
+
+
+</style>
+</head>
+
+<body >
+
+<!-- nav bar -->
+  
+        <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">ItsMyWay</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li >
+            <a href="/">Questions </a>
+        </li>
+        <!--<li class="active">
+            <a href="askquestion.html">Ask question<span class="sr-only">(current)</span></a>
+        </li>-->
+        </ul>
+	{% if user.is_authenticated %}
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'forums:logout' %}">Logout</a></li>
+      </ul>
+	{% else %}
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'forums:login' %}">Login</a></li>
+      </ul>
+	{% endif %}
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+<!-- nav bar ends -->
+
+      
+
+<section>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+       
+       <div class="well">
+
+		{% if user.is_authenticated %}
+		<h1>hi {{user.get_username}}</h1>
+             <form action="{% url 'forums:questiondb' %}" method="post">{% csrf_token %}
+              <div class="input-group">
+                <div class="row">
+                 
+                 <input  name="askqu" id="askqu" type="text" placeholder="  Your question title.." required>
+               <hr>
+               <div class="row">
+                 <textarea  id="askdes" name="askdes" rows="8" columns="140" placeholder="  Question.." required ></textarea>
+               </div><hr>
+                 <button class="btn btn-info btn-lg" type="submit">Submit</button></form>
+{% else %}
+</br>
+<a href="{% url 'forums:login'%}?next={% url 'forums:askqu'%}">Please login to ask question</a>
+{% endif %}
+                </div>
+                </div>
+              </div>
+             
+       </div>
+      
+    </div>
+  </div>
+</div>
+</section>
+
+
+
+
+  
+
+
+
+
+    <script src="{% static 'forums/js/jquery.min.js' %}"></script>
+    <script src="{% static 'forums/js/bootstrap.min.js' %}"></script>
+
+
+    </body>
+</html>

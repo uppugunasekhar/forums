@@ -1,0 +1,351 @@
+{% if askques %}
+{{ askques }}
+{% endif %}
+{% load staticfiles %}
+{% if form.errors %}
+		<p class="error">sorry,thats not a valid username or password</p>
+{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+
+    <title>Sign up page for ItsMyWay</title>
+
+     <link href="{% static 'forums/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'forums/css/style.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'forums/shrtcut.ico' %}"/>
+	
+<!-- font for heading-->
+
+<script type="text/javascript" src="{% static 'forums/js/login_js.js' %}"></script>
+<script type="text/javascript">
+	function password_vaildation() {
+	var password = document.getElementById('password');
+	var cpassword=document.getElementById('cpassword');
+	
+	if(password==cpassword){
+		return true;		
+	}
+	else{
+		alert("Password mismatch");
+		password.focus();
+		return false;
+	}
+}		
+</script>
+<!--font ends -->		
+
+
+<style type="text/css">
+h2{
+    margin: 0;     
+    color: #666;
+    padding-top: 6px;
+    font-size: 52px;
+    font-family: "trebuchet ms", sans-serif;    
+}
+.item{
+    background: #333;    
+    text-align: center;
+    height: 300px !important;
+}
+.carousel{
+    margin-top: 20px;
+}
+.bs-example{
+	margin: 20px;
+}
+
+.panel
+{
+    background-color: #fff;
+    
+    
+}
+
+body{
+	/*background: url("images/bb.jpg") no-repeat center center fixed;*/
+	background-size: cover;
+	color: #fff
+}
+
+#header{
+	width: 1170px;
+	height: 80px;
+	padding: 0px 112px
+}
+h2,p{
+	font-family: Hallo sans black;
+	font-size: 20px;
+	color: #000;
+
+}
+h3 {
+	font-family: Hallo sans black;
+
+}
+label{
+	font-family: Hallo sans;
+	font-size: 20px;
+	color: #000;
+} 
+span{
+	font-family: Hallo sans;
+	font-size: 15px;	
+}
+a {
+	font-family: Hallo sans;
+	font-size: 35px;	
+}
+#footer p,a{
+	font-family: Hallo sans;
+	font-size: 12px;
+	color: #000;
+
+}
+
+#form_wrapper input[type="submit"]{
+	font-family: Hallo sans;
+	font-size: 20px;
+
+}
+
+
+</style>
+</head>
+
+<body >
+
+
+	
+    
+
+	<header id="header" >
+    	<div class="container">
+        	<div class="row">
+        	<div class="fontArea" >
+				<h2 style="font-family: Hallo sans; font-size:65px; color:#000">ItsMyWay</h2>
+			</div>				
+        	</div>
+   		</div>
+	</header>
+
+	<div class="panel panel-default"><!--panel begin-->
+		<div class="panel-body ">
+
+			<div class="container ">
+		    	<div class="row">
+		    		<div class="col-left col-xs-12 col-md-7 " > 
+						
+<!-- carousel begins -->
+						
+						<div id="myCarousel" class="carousel slide" data-interval="3000" data-ride="carousel">
+					    	<!-- Carousel indicators -->
+					        <ol class="carousel-indicators">
+					            <li class="slide-one active"></li>
+					            <li class="slide-two"></li>
+					            <li class="slide-three"></li>
+					        </ol>   
+					        <!-- Carousel items -->
+					        <div class="carousel-inner">
+					            <div class="active item">
+					                <img src="{% static 'forums/images/bg.jpg'%}" alt="Smiley face" height="300" width="653">
+					         		<div class="carousel-caption" >
+					                 
+					                </div>
+					            </div>
+					            <div class="item">
+					            	<img src="{% static 'forums/images/7.jpg'%}" alt="Smiley face"  width="653">
+					                
+					                <div class="carousel-caption">
+					                  
+					                </div>
+					            </div>
+					            <div class="item">
+					                <img src="{% static 'forums/images/2.jpg'%}" alt="Smiley face" height="300" width="653">
+					                  <div class="carousel-caption">
+					                  
+					                </div>
+					            </div>
+					        </div>
+					        <!-- Carousel nav -->
+							<a class="carousel-control left" href="#myCarousel" data-slide="prev">
+					            <span class="glyphicon glyphicon-chevron-left"></span>
+					        </a>
+					        <a class="carousel-control right" href="#myCarousel" data-slide="next">
+					            <span class="glyphicon glyphicon-chevron-right"></span>
+					        </a>
+					    </div>	
+<!-- carousel ends -->
+					    <hr>	
+<!-- quote -->
+		    			
+			    			<blockquote class="pull-right">
+							     <p>“Discussion is an exchange of knowledge; argument an exchange of ignorance.”</p>
+							     <small>by <cite>Robert Quillen</cite></small>
+							</blockquote>
+		    		</div>
+<!-- login form bgins-->		    			
+		    	    <div class="col-right col-xs-12 col-md-4  ">
+		        	    			<div class="content">
+				<div id="form_wrapper" class="form_wrapper ">
+<!-- REGISTRATION FORM-->
+						<form class="register" action="/register1/" method="post">{% csrf_token %}
+						<h3>Register</h3>
+						
+						
+							<div>
+								<input type="text" placeholder="Username" name="username" id="username" required/>
+							</div><br>							
+
+							<div>
+								<input type="email" placeholder="Email-id" name="email" id="email" required/>
+							</div><br>
+							
+							<div>
+								<input type="password" placeholder="Password" name="password" id="password" required/>
+							</div><br>
+							<div>
+								<input type="password" placeholder="Confirm Password" id="cpassword" name="cpassword" onkeyup="checkPass(); return false;" required />
+							</div>
+						
+						<div class="bottom">
+							<div class="remember">
+							</div> 
+							<input type="submit" value="Register" onsubmit="password_vaildation()"/>
+							<a href="index.html" rel="login" class="linkform">You have an account already? Log in here</a>
+							
+							
+						</div>
+					</form>
+
+<!-- LOGIN FORM -->
+					<form class="login active" action="{% url 'forums:login' %}?next={{ request.get_full_path|urlencode }}" method="post">{% csrf_token %}
+						<h3>Login</h3>
+						<div>
+							<label>Username</label>
+							<input type="username" name="username" placeholder="Enter username" id="username" required/>
+						</div>
+						<div>
+							<label>Password</label>
+							<input type="password" name="password" placeholder="Enter password" id="password" required/>
+						</div>
+						<div class="bottom" >
+							  <div class="remember">
+							</div>
+							 <input type="submit" value="Login" ></input> 
+							<a href="register.html" rel="register" class="linkform">You don't have an account yet? Register here</a>
+							<div class="clear"></div>
+						</div>
+					</form>
+				</div>
+				<div class="clear"></div>
+			</div>
+
+		        	    </div>
+		    		</div> <!-- /.col-xs-12 -->
+		    	</div> <!-- /.row -->
+		    </div> <!-- /.container -->
+    	</div>
+    </div><!-- panel end-->
+<!-- login form ends-->
+
+
+
+    <footer id="footer">
+	    <div class="container" >
+	        <div class="row">
+	            <div class="col-xs-12">
+	                <p>Page © - Imaginate</p>
+	                <p>Developed by <strong><a href="http://www.facebook.com/imaginate" target="_blank">Imaginate software</a></strong></p>
+	            </div>
+	        </div>
+	    </div>
+	</footer>
+
+	 <script src="{% static 'forums/js/jquery.min.js' %}"></script>
+    <script src="{% static 'forums/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript">
+			$(function() {
+					//the form wrapper (includes all forms)
+				var $form_wrapper	= $('#form_wrapper'),
+					//the current form is the one with class active
+					$currentForm	= $form_wrapper.children('form.active'),
+					//the change form links
+					$linkform		= $form_wrapper.find('.linkform');
+						
+				//get width and height of each form and store them for later						
+				$form_wrapper.children('form').each(function(i){
+					var $theForm	= $(this);
+					//solve the inline display none problem when using fadeIn fadeOut
+					if(!$theForm.hasClass('active'))
+						$theForm.hide();
+					$theForm.data({
+						width	: $theForm.width(),
+						height	: $theForm.height()
+					});
+				});
+				
+				//set width and height of wrapper (same of current form)
+				setWrapperWidth();
+				
+				/*
+				clicking a link (change form event) in the form
+				makes the current form hide.
+				The wrapper animates its width and height to the 
+				width and height of the new current form.
+				After the animation, the new form is shown
+				*/
+				$linkform.bind('click',function(e){
+					var $link	= $(this);
+					var target	= $link.attr('rel');
+					$currentForm.fadeOut(400,function(){
+						//remove class active from current form
+						$currentForm.removeClass('active');
+						//new current form
+						$currentForm= $form_wrapper.children('form.'+target);
+						//animate the wrapper
+						$form_wrapper.stop()
+									 .animate({
+										width	: $currentForm.data('width') + 'px',
+										height	: $currentForm.data('height') + 'px'
+									 },500,function(){
+										//new form gets class active
+										$currentForm.addClass('active');
+										//show the new form
+										$currentForm.fadeIn(400);
+									 });
+					});
+					e.preventDefault();
+				});
+				
+				function setWrapperWidth(){
+					$form_wrapper.css({
+						width	: $currentForm.data('width') + 'px',
+						height	: $currentForm.data('height') + 'px'
+					});
+				}
+				
+				/*
+				for the demo we disabled the submit buttons
+				if you submit the form, you need to check the 
+				which form was submited, and give the class active 
+				to the form you want to show
+				*/
+							
+			});
+
+
+
+			
+	
+
+
+        </script>
+</body>
+</html>

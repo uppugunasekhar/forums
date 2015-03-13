@@ -1,0 +1,148 @@
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+
+    <title>Comments section</title>
+
+    <link href="{% static 'forums/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'forums/css/style_comments.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'forums/shrtcut.ico' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'forums/css/style_time.css' %}">
+    <style>
+    body{
+    	overflow:scroll;
+    }
+    </style>
+	
+
+
+</head>
+<body >
+
+<nav class="navbar navbar-default">
+  			<div class="container-fluid">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+			      	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			      <a class="navbar-brand" href="/">ItsMyWay</a>
+    		</div>
+
+    <!--Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li >
+            <a href="/">Questions </a>
+        </li>
+        <li>
+            <a href="{% url 'forums:askqu' %}">Ask question</a>
+        </li>
+        </ul>
+
+      {% if user.is_authenticated %}
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'forums:logout' %}">Logout</a></li>
+      </ul>
+	{% else %}
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'forums:login' %}">Login</a></li>
+      </ul>
+	{% endif %}
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+<div class="container">
+    <div class="col-lg-4 col-sm-6 text-center">
+    	<div class="well">
+    		<div class="ques">
+      	  	<h2>{{ s.subject_title }}</h2>
+            <h4>Posted time : {{ s.pub_date }}</h4>
+            <hr>
+              <h4 ><strong>Description : </strong>{{ s.subject_desc }}</h4>
+        </div>
+            <hr>
+
+			
+      
+        <!-- comment box -->
+<form name= "discussion" id = "discussion" method = "post" action = "{% url 'forums:comment' s.id %}"> {%csrf_token%}
+{% for com in c %}
+         <div class="qa-message-list" id="wallmessages">
+            <div class="message-item" id="m16">
+                <div class="message-inner">
+                  <div class="message-head clearfix">
+                    
+                    <div class="user-detail">
+                      <h5 class="handle"></h5>
+                      <div class="post-meta">
+                        <div class="asker-meta">
+                            <span class="qa-message-when-data">{{com.user.username }} &nbsp;&nbsp;&nbsp; : &nbsp;&nbsp;&nbsp;{{ com.time }}</span>&nbsp;
+                            <span class="qa-message-when"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="qa-message-content">
+                    <textarea rows="4" cols="100" name="comment" id="userComment" value="" disabled>{{ com.text }}.</textarea>
+                  </div>
+              </div>
+            </div>
+        </div> 
+{% endfor %}
+{% if user.is_authenticated %}
+        <div class="qa-message-list" id="wallmessages">
+            <div class="message-item" id="m16">
+                <div class="message-inner">
+                  <div class="message-head clearfix">
+                    
+                    <div class="user-detail">
+                      <h5 class="handle"></h5>
+                      <div class="post-meta">
+                        <div class="asker-meta">
+                            <span class="qa-message-when-data">{{ user.get_username }} </span>&nbsp;
+                            <span class="qa-message-when"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="qa-message-content">
+                    <textarea rows="4" cols="100" name="txt_comment" id="txt_comment" placeholder="Enter your comment.."></textarea>
+                  </div>
+              </div>
+            </div>
+        </div>
+        <!-- comment box ends-->
+
+			    <div class="input-group">
+			           
+				    <span class="input-group-btn" onclick="addComment()"> 
+                   <input class="btn btn-default btn-primary btn-sm" type="submit" value="Add comment"> </input>    
+			            
+			        </span>
+			    </div>
+   		</div>
+    </div>
+</div>
+{% endif %}
+</form>
+
+
+<script src="{% static 'forums/js/comment.js' %}"></script>
+<script src="{% static 'forums/js/jquery.min.js' %}"></script>
+<script src="{% static 'forums/js/bootstrap.min.js' %}"></script>
+
+</body>
+</html>
